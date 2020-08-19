@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<title>DW</title>
+	<meta charset="utf-8">
+	
+	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+	<link rel="stylesheet" href="{% static 'css/css.css' %}">
+	
+	<script src="{% static 'node_modules/chart.js/dist/Chart.js' %}"></script>
+	
+</head>
+<body>
+	<h1>Teste - Desenvolvimento Web</h1>
+	<canvas id="myChart"></canvas>
+	
+</body>
+	
+<script>
+
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+
+    // The data for our dataset
+    data: {
+        labels: [{% for d in doe %}'{{d.nome}}',{% endfor %}],
+        datasets: [{
+            label: 'Número de casos',
+            backgroundColor: 'rgb(32,178,170)',
+            borderColor: 'rgb(32,178,170)',
+            data: [{% for r in res %}'{{r.ncasos__sum}}',{% endfor %}],
+        }]
+    },
+
+    // Configuration options go here
+    options: {
+		scales: {
+            yAxes: [{
+                ticks: {
+                    suggestedMin: 0,
+                    suggestedMax: 10
+                }
+            }]
+        }
+	}
+});
+
+</script>
+
+</html>
