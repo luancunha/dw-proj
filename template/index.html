@@ -13,8 +13,16 @@
 </head>
 <body>
 	<h1>Teste - Desenvolvimento Web</h1>
-	<canvas id="myChart"></canvas>
-	{% for k, v in row %}{{v}}{% endfor %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col">
+				<canvas id="myChart"></canvas>
+			</div>
+			<div class="col">
+				<canvas id="myChart2"></canvas>
+			</div>
+		</div>
+	</div>
 </body>
 	
 <script>
@@ -28,10 +36,45 @@ var chart = new Chart(ctx, {
     data: {
         labels: [{% for d in doe %}'{{d.nome}}',{% endfor %}],
         datasets: [{
-            label: 'Número de casos',
+            label: 'Número de casos por doença',
             backgroundColor: 'rgb(32,178,170)',
             borderColor: 'rgb(32,178,170)',
             data: [{% for k, v in row %}
+					{% if '{{v}}' > '0' %}
+						'{{v}}',
+					{% else %}
+						'0',
+					{% endif %}
+			{% endfor %}],
+        }]
+    },
+
+    // Configuration options go here
+    options: {
+		scales: {
+            yAxes: [{
+                ticks: {
+                    suggestedMin: 0,
+                    suggestedMax: 10
+                }
+            }]
+        }
+	}
+});
+
+var ctx2 = document.getElementById('myChart2').getContext('2d');
+var chart2 = new Chart(ctx2, {
+    // The type of chart we want to create
+    type: 'bar',
+
+    // The data for our dataset
+    data: {
+        labels: [{% for c in cid %}'{{c.nome}}',{% endfor %}],
+        datasets: [{
+            label: 'Número de casos por cidade',
+            backgroundColor: 'rgb(34,139,34)',
+            borderColor: 'rgb(32,178,170)',
+            data: [{% for k, v in row2 %}
 					{% if '{{v}}' > '0' %}
 						'{{v}}',
 					{% else %}

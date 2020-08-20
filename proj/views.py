@@ -6,6 +6,7 @@ from django.db import connection
 def index(request):
     reg = registro.objects.all()
     doe = doenca.objects.all()
+    cid = cidade.objects.all()
     
     def sql():
         cursor = connection.cursor()
@@ -15,8 +16,14 @@ def index(request):
     
     row = sql()
     
-    res = registro.objects.values('doenca').annotate(Sum('ncasos')).order_by('doenca')
+    def sql2():
+        cursor = connection.cursor()
+        cursor.execute("SELECT hospital,SUM(ncasos) FROM proj_registro GRoUP BY hospital;")
+        row = cursor.fetchall()
+        return row
     
-    context={'doe':doe, 'reg':reg, 'res':res, 'row':row}
+    row2 = sql2()
+    
+    context={'doe':doe, 'reg':reg, 'row':row, 'row2':row2, 'cid':cid}
 
     return render(request,'index.html',context)
