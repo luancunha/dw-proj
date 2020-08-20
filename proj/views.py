@@ -1,13 +1,22 @@
 from django.shortcuts import render
-from proj.models import Cidades, Doencas, Hospitais, Registros
+from proj.models import cidade, doenca, hospital, registro
 from django.db.models import Sum
+from django.db import connection
 
 def index(request):
-    reg = Registros.objects.all()
-    doe = Doencas.objects.all()
+    reg = registro.objects.all()
+    doe = doenca.objects.all()
     
-    res = Registros.objects.values('doenca').annotate(Sum('ncasos')).order_by('doenca')
+    def sql():
+        cursor = connection.cursor()
+        cursor.execute("SELECT d.nome,r.ncasos FROM proj_doenca as D LEFT JOIN proj_registro as R ON d.iddoenca=r.doenca")
+        row = cursor.fetchall()
+        return row
     
-    context={'doe':doe, 'reg':reg, 'res':res}
+    row = sql()
+    
+    res = registro.objects.values('doenca').annotate(Sum('ncasos')).order_by('doenca')
+    
+    context={'doe':doe, 'reg':reg, 'res':res, 'row':row}
 
     return render(request,'index.html',context)

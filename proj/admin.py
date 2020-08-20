@@ -1,7 +1,7 @@
 from django.contrib import admin
-from proj.models import Cidades, Doencas, Hospitais, Registros
+from proj.models import cidade, doenca, hospital, registro
 
-admin.site.register(Cidades)
-admin.site.register(Doencas)
-admin.site.register(Hospitais)
-admin.site.register(Registros)
+admin.site.register(cidade)
+admin.site.register(doenca)
+admin.site.register(hospital)
+admin.site.register(registro)

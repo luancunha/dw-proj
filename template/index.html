@@ -14,7 +14,6 @@
 <body>
 	<h1>Teste - Desenvolvimento Web</h1>
 	<canvas id="myChart"></canvas>
-	
 </body>
 	
 <script>
@@ -31,7 +30,13 @@ var chart = new Chart(ctx, {
             label: 'Número de casos',
             backgroundColor: 'rgb(32,178,170)',
             borderColor: 'rgb(32,178,170)',
-            data: [{% for r in res %}'{{r.ncasos__sum}}',{% endfor %}],
+            data: [{% for k, v in row %}
+					{% if '{{v}}' > '0' %}
+						'{{v}}',
+					{% else %}
+						'0',
+					{% endif %}
+			{% endfor %}],
         }]
     },
 
