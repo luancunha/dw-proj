@@ -9,7 +9,7 @@ def index(request):
     
     def sql():
         cursor = connection.cursor()
-        cursor.execute("SELECT d.nome,r.ncasos FROM proj_doenca as D LEFT JOIN proj_registro as R ON d.iddoenca=r.doenca")
+        cursor.execute("SELECT d.nome,SUM(r.ncasos) FROM proj_doenca as D LEFT JOIN proj_registro as R ON d.iddoenca=r.doenca GRoUP BY d.nome ORDER BY d.iddoenca")
         row = cursor.fetchall()
         return row
     
