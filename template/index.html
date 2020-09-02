@@ -6,20 +6,48 @@
 	<meta charset="utf-8">
 	
 	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-	<link rel="stylesheet" href="{% static 'css/css.css' %}">
 	
 	<script src="{% static 'node_modules/chart.js/dist/Chart.js' %}"></script>
 	
+	<style>
+		h1 {
+			font-family: "Lucida Console", Courier, monospace !important;
+			text-align: center;
+			font-size: 2.2rem !important;
+		}
+		.row {
+			margin-left: auto !important;
+			margin-right: auto !important;
+			width: 80% !important;
+		}
+	</style>
 </head>
 <body>
-	<h1>Teste - Desenvolvimento Web</h1>
-	<div class="container-fluid">
+	<div class="flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm" style="background-color: #d9d9d9 !important">
+		<h1 class="my-0 mr-md-auto">Teste - Desenvolvimento Web</h1>	
+	</div>
+	<br>
+	<div class="container">
 		<div class="row">
-			<div class="col">
-				<canvas id="myChart1"></canvas>
+			<div class="col-md">
+				<h3>Gráfico Número de Casos por Doença</h3>
+				<div class="card shadow-sm">
+					<div class="card-body align-items-start">
+						<canvas id="myChart1"></canvas>
+					</div>
+				</div>
 			</div>
-			<div class="col">
-				<canvas id="myChart2"></canvas>
+		</div>
+		<br>
+		<br>
+		<div class="row">
+			<div class="col-md">
+				<h3>Gráfico Número de Casos por Cidade</h3>
+				<div class="card shadow-sm">
+					<div class="card-body align-items-start">
+						<canvas id="myChart2"></canvas>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
